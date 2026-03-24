@@ -12,14 +12,16 @@ import {
 } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button";
 
-const BAKED_GOODS = ["Cookies", "Rice Krispie Treats", "Brownies", "Sourdough Bread", "Edible Cookie Dough", "Cinnamon Rolls"] as const;
+const BAKED_GOODS = ["Cookies", "Rice Krispie Treats", "Brownies", "Sourdough Bread", "Edible Cookie Dough", "Cinnamon Rolls", "Cupcakes", "Banana Bread"] as const;
 const BAKED_GOODS_IMAGES = {
   "Cookies": "/chocChip.jpg",
   "Rice Krispie Treats": "/rice-krispie.jpg",
   "Brownies": "/brownies.jpg",
   "Sourdough Bread": "/sourdough_bread.jpg",
   "Edible Cookie Dough": "/doughOfCookie.jpg",
-  "Cinnamon Rolls": "/croll.jpg"
+  "Cinnamon Rolls": "/croll.jpg",
+  "Cupcakes" : "/brownie-cupcakes.jpg",
+  "Banana Bread" : "/banana_bread.jpg"
 };
 
 export default function Home() {
@@ -45,14 +47,14 @@ export default function Home() {
                 <DrawerHeader>
                   <DrawerTitle>
                     <Image src={BAKED_GOODS_IMAGES[good]} alt={good} width={250} height={250} />
-                    {good}
+                    <div className="text-xl font-bold">{good}</div>
                   </DrawerTitle>
                   <DrawerDescription>
-                    <p>Details about {good}</p>
+                    <p className="text-lg">Details about {good}</p>
                   </DrawerDescription>
                 </DrawerHeader>
 
-                <div key={good} className="pl-4">
+                <div key={good} className="pl-4 text-xl">
                   Allergens in cookies: Gluten
                 </div>
 
