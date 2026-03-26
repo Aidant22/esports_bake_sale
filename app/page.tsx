@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button";
 
-const BAKED_GOODS = ["Cookies", "Rice Krispie Treats", "Brownies", "Sourdough Bread", "Edible Cookie Dough", "Cinnamon Rolls", "Cupcakes", "Banana Bread"] as const;
+const BAKED_GOODS = ["Cookies", "Rice Krispie Treats", "Brownies", "Sourdough Bread", "Edible Cookie Dough", "Cinnamon Rolls", "Cupcakes", "Banana Bread", "Lemon Loaf"] as const;
 const BAKED_GOODS_IMAGES = {
   "Cookies": "/chocChip.jpg",
   "Rice Krispie Treats": "/rice-krispie.jpg",
@@ -21,7 +21,8 @@ const BAKED_GOODS_IMAGES = {
   "Edible Cookie Dough": "/doughOfCookie.jpg",
   "Cinnamon Rolls": "/cinnamon_roll.jpg",
   "Cupcakes" : "/brownie-cupcakes.jpg",
-  "Banana Bread" : "/banana_bread.jpg"
+  "Banana Bread" : "/banana_bread.jpg",
+  "Lemon Loaf" : "/lemon-loaf.jpg"
 }
 const BAKED_GOODS_ING = {
   Cookies: {
@@ -55,6 +56,19 @@ const BAKED_GOODS_ING = {
       "Chocolate Peanut Butter",
       "Eggs",
       "Flour"
+    ],
+    "Two Pack Choc Chip": [
+      "Eggs",
+      "Brown Sugar",
+      "Sugar",
+      "Margarine",
+      "Shortening",
+      "Baking Soda",
+      "Salt",
+      "Vanilla",
+      "Flour",
+      "Chocolate Chips",
+
     ]
   },
 
@@ -98,7 +112,18 @@ const BAKED_GOODS_ING = {
     ]
   },
 
-  "Cinnamon Rolls": {},
+  "Cinnamon Rolls": {
+    "Cinnamon Rolls": [
+      "Sugar",
+      "Salt",
+      "Eggs",
+      "Shortening",
+      "Potatoes",
+      "Water",
+      "Yeast",
+      "Flour"
+    ]
+  },
 
   Cupcakes: {
     Cupcakes: [
@@ -143,18 +168,39 @@ const BAKED_GOODS_ING = {
       "Vanilla Extract",
       "Cinnamon",
       "Chocolate"
+    ]  
+  },
+  "Lemon Loaf": {
+    "Lemon Loaf": [
+      "Lemon",
+      "Flour",
+      "Baking Powder",
+      "Salt",
+      "Sugar",
+      "Butter",
+      "Eggs",
+      "Milk"
     ]
-  }
+  } 
+
 };
 const BAKED_GOODS_ALG = {
   Cookies: {
     "Large Choc Cookies": {
-      contains: ["Wheat (Gluten)", "Eggs", "Dairy (Butter)"],
-      mayContain: ["Soy"]
+      contains: ["Wheat (Gluten)", "Eggs", "Dairy"],
+      mayContain: ["Soy"] // chocolate chips
     },
     "Smaller Choc Cookies": {
-      contains: ["Wheat (Gluten)", "Eggs", "Dairy (Butter)"],
+      contains: ["Wheat (Gluten)", "Eggs", "Dairy"],
       mayContain: ["Soy"]
+    },
+    "PB Swirl": {
+      contains: ["Wheat (Gluten)", "Eggs", "Dairy", "Peanuts"],
+      mayContain: ["Soy"]
+    },
+    "Two Pack Choc Chip": {
+      contains: ["Wheat (Gluten)", "Eggs"],
+      mayContain: ["Dairy", "Soy"] // margarine + chocolate chips
     }
   },
 
@@ -168,18 +214,24 @@ const BAKED_GOODS_ALG = {
   },
 
   "Sourdough Bread": {
-    Ingredients: {
+    "Sourdough Bread": {
       contains: ["Wheat (Gluten)"]
     }
   },
 
   "Edible Cookie Dough": {
-    Ingredients: {
-      contains: ["Milk/Dairy", "Wheat (Gluten)", "Soy"]
+    "Edible Cookie Dough": {
+      contains: ["Dairy", "Wheat (Gluten)"],
+      mayContain: ["Soy"] // chocolate chips
     }
   },
 
-  "Cinnamon Rolls": {},
+  "Cinnamon Rolls": {
+    "Cinnamon Rolls": {
+      contains: ["Wheat (Gluten)", "Eggs"],
+      mayContain: ["Soy"] // shortening
+    }
+  },
 
   Cupcakes: {
     Cupcakes: {
@@ -197,7 +249,13 @@ const BAKED_GOODS_ALG = {
     },
     Chocolate: {
       contains: ["Dairy", "Eggs", "Wheat (Gluten)"],
-      mayContain: ["Soy"]
+      mayContain: ["Soy"] // chocolate
+    }
+  },
+
+  "Lemon Loaf": {
+    "Lemon Loaf": {
+      contains: ["Wheat (Gluten)", "Eggs", "Dairy"]
     }
   }
 };
@@ -205,7 +263,8 @@ const PRICES = {
   "Cookies": {
     "1 Large Chocolate Chip Cookies": ["$3"],
     "1 Small Chocolate Chip Cookies": ["$1.50"],
-    "1 PB Swirl": ["$1.50"]
+    "1 PB Swirl": ["$1.50"],
+    "2 pack of Choclate Chip": ["$3"],
   },
 
   "Rice Krispie Treats": {
@@ -236,11 +295,16 @@ const PRICES = {
 
   "Banana Bread": {
     "1 Loaf": ["$5"]
+  },
+
+  "Lemon Loaf": {
+    "1 loaf": ["$5"]
   }
 };
 
 export default function Home() {
   return (
+    <>
     <div className="">
       <div className="flex border-b-2">
         <Image src="/esports_logo.png" alt="esports_logo" width={100} height={100} />
@@ -268,10 +332,10 @@ export default function Home() {
                       const max = Math.max(...values);
 
                       return (
-                        <div className="text-base flex items-center font-bold">
+                        <span className="text-base flex items-center font-bold">
                           {" "}
                           ${min === max ? min.toFixed(2) : `${min.toFixed(2)} - $${max.toFixed(2)}`}
-                        </div>
+                        </span>
                       );
                     })()}
                   <InfoIcon />
@@ -353,5 +417,6 @@ export default function Home() {
         </div>
       </div>      
     </div>
+  </>
   );
 }
