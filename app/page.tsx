@@ -184,7 +184,21 @@ const BAKED_GOODS_ING = {
   } 
 
 };
-const BAKED_GOODS_ALG = {
+
+type AllergenInfo = {
+  contains: string[];
+  mayContain?: string[];
+};
+
+type AllergenSections = {
+  [section: string]: AllergenInfo;
+};
+
+type BakedGoodsAllergens = {
+  [good: string]: AllergenSections;
+};
+
+const BAKED_GOODS_ALG: BakedGoodsAllergens = {
   Cookies: {
     "Large Choc Cookies": {
       contains: ["Wheat (Gluten)", "Eggs", "Dairy"],
