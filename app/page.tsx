@@ -22,7 +22,37 @@ const BAKED_GOODS_IMAGES = {
   "Cinnamon Rolls": "/croll.jpg",
   "Cupcakes" : "/brownie-cupcakes.jpg",
   "Banana Bread" : "/banana_bread.jpg"
-};
+}
+const BAKED_GOODS_ING = {
+  "Cookies": "",
+  "Rice Krispie Treats": "",
+  "Brownies": "",
+  "Sourdough Bread": "Water, Flour, Salt, Starter (wild yeast & Lactic Acid)",
+  "Edible Cookie Dough": "Butter, Sugar, Dark Brown Sugar, applesauce, vanilla extract, flour, baking soda, salt, chocolate chips",
+  "Cinnamon Rolls": "",
+  "Cupcakes" : "",
+  "Banana Bread" : ""
+}
+const BAKED_GOODS_AMOUNTS = {
+  "Cookies": "Single",
+  "Rice Krispie Treats": "Single",
+  "Brownies": "Single",
+  "Sourdough Bread": "Whole, Slice",
+  "Edible Cookie Dough": "1 ball",
+  "Cinnamon Rolls": "Single, Pan",
+  "Cupcakes" : "Single",
+  "Banana Bread" : "Slice"
+}
+const BAKED_GOODS_ALG = {
+  "Cookies": "",
+  "Rice Krispie Treats": "",
+  "Brownies": "",
+  "Sourdough Bread": "Gluten, Wheat",
+  "Edible Cookie Dough": "Milk/Dairy, Gluten, Wheat, Soy",
+  "Cinnamon Rolls": "",
+  "Cupcakes" : "",
+  "Banana Bread" : ""
+}
 
 export default function Home() {
   return (
@@ -32,7 +62,8 @@ export default function Home() {
         <h1 className="text-3xl font-bold flex justify-center items-center pl-4">ESPORTS BAKE SALE</h1>
       </div>
       <div className="bg-gradient-to-b from-orange-300 to-white min-h-screen pl-8 pr-8">
-        <h2 className="text-2xl font-bold underline flex justify-center items-center pt-4 pb-8">Baked Goods for Sale</h2>
+        <h2 className="text-2xl font-bold underline flex justify-center items-center pt-4">Baked Goods for Sale</h2>
+        <p className="text-lg font-normal flex justify-center items-center pb-8"> Please tap on any of these items to view information about ingredients, allergens, and pricing! </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 place-items-stretch">
           {BAKED_GOODS.map((good) => (
             <Drawer key={good} direction="left">
@@ -49,14 +80,19 @@ export default function Home() {
                     <Image src={BAKED_GOODS_IMAGES[good]} alt={good} width={250} height={250} />
                     <div className="text-xl font-bold">{good}</div>
                   </DrawerTitle>
-                  <DrawerDescription>
-                    <p className="text-lg">Details about {good}</p>
+                  <DrawerDescription className="text-lg">
+                    Details about {good}
                   </DrawerDescription>
                 </DrawerHeader>
-
-                <div key={good} className="pl-4 text-xl">
-                  Allergens in cookies: Gluten
-                </div>
+                  <div className="pl-4 pb-2 text-xl">
+                    <b>ALLERGENS:</b> <br/>{BAKED_GOODS_ALG[good]}
+                  </div>
+                  <div className="pl-4 pb-2 text-xl">
+                    <b>Ingredients:</b> <br/>{BAKED_GOODS_ING[good]}
+                  </div>
+                  <div className="pl-4 pb-2 text-xl">
+                    <b>Portions Available:</b> <br/> {BAKED_GOODS_AMOUNTS[good]}
+                  </div>
 
                 <DrawerFooter>
                   <DrawerClose>Close</DrawerClose>
@@ -65,43 +101,6 @@ export default function Home() {
             </Drawer>
           ))}
         </div>
-
-        {/* <Drawer >
-          <DrawerTitle className="text-2xl font-bold flex justify-center items-center">Cookie Info</DrawerTitle>
-          <DrawerDescription className="flex justify-center items-center pb-8">Click on the image to show that </DrawerDescription>
-          <div className="flex items-between justify-evenly">
-            <div className="flex flex-col items-center">
-              <Image src="/chocChip.jpg" alt="cookies" width={250} height={250} />
-              <p className="text-xl font-bold flex justify-center items-center">Cookies <InfoIcon /></p>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/rice-krispie.jpg" alt="Rice Krispie Treats" width={250} height={250} />
-              <p className="text-xl font-bold flex justify-center items-center">Rice Krispie Treats <InfoIcon /></p>
-            </div>          
-            <div className="flex flex-col items-center">
-              <Image src="/brownies.jpg" alt="Brownies" width={250} height={250} />
-              <p className="text-xl font-bold flex justify-center items-center">Brownies <InfoIcon /></p>
-            </div>    
-          </div>
-          <div className="flex items-between justify-evenly pt-8">
-            <div className="flex flex-col items-center">
-              <Image src="/sourdough_bread.jpg" alt="sourdough bread" width={250} height={250} />
-              <p className="text-xl font-bold flex justify-center items-center">Sourdough Bread <InfoIcon /></p>
-            </div>
-            <div className="flex flex-col items-center">
-              <Image src="/doughOfCookie.jpg" alt="Edible Cookie Dough" width={250} height={250}/>
-              <p className="text-xl font-bold flex justify-center items-center">Edible Cookie Dough <InfoIcon /></p>
-            </div>          
-            <div className="flex flex-col items-center">
-              <Image src="/croll.jpg" alt="Cinnamon Rolls" width={250} height={250} />
-              <p className="text-xl font-bold flex justify-center items-center">Cinnamon Rolls <InfoIcon /></p>
-            </div>
-          </div>          
-          
-          <div className="flex items-between justify-evenly pt-4 ">
-          </div> 
-          
-        </Drawer> */}
       </div>      
     </div>
   );
