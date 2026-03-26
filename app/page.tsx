@@ -19,7 +19,7 @@ const BAKED_GOODS_IMAGES = {
   "Brownies": "/brownies.jpg",
   "Sourdough Bread": "/sourdough_bread.jpg",
   "Edible Cookie Dough": "/doughOfCookie.jpg",
-  "Cinnamon Rolls": "/croll.jpg",
+  "Cinnamon Rolls": "/cinnamon_roll.jpg",
   "Cupcakes" : "/brownie-cupcakes.jpg",
   "Banana Bread" : "/banana_bread.jpg"
 }
@@ -121,28 +121,86 @@ const BAKED_GOODS_ING = {
     ]
   },
 
-  "Banana Bread": {}
+  "Banana Bread": {
+    Regular: [
+      "Banana",
+      "Butter",
+      "Sugar",
+      "Eggs",
+      "Flour",
+      "Baking Soda",
+      "Salt",
+      "Vanilla Extract"
+    ],
+    Chocolate: [
+      "Banana",
+      "Butter",
+      "Sugar",
+      "Eggs",
+      "Flour",
+      "Baking Soda",
+      "Salt",
+      "Vanilla Extract",
+      "Cinnamon",
+      "Chocolate"
+    ]
+  }
 };
-const BAKED_GOODS_AMOUNTS = {
-  "Cookies": "Single Choclate Chip - Small, Single Choclate Chip - Large, Single - PB Swirl Cookies",
-  "Rice Krispie Treats": "Single Bar",
-  "Brownies": "Single Piece",
-  "Sourdough Bread": "Whole Loaf, Half Loaf",
-  "Edible Cookie Dough": "2 ball",
-  "Cinnamon Rolls": "Single, Pan",
-  "Cupcakes" : "Single",
-  "Banana Bread" : "Loaf"
-}
 const BAKED_GOODS_ALG = {
-  "Cookies": "Large Cookies Contains: Wheat (Gluten), Eggs, Dairy (Butter). May Contain: Soy \n Smaller Cookies Contain: Wheat (Gluten), Eggs, Dairy. May Contain: Soy",
-  "Rice Krispie Treats": "",
-  "Brownies": "PB Chocolate Contains: Peanuts, Dairy, Eggs, Wheat (Gluten). May Contain: Soy",
-  "Sourdough Bread": "Contains: Wheat (Gluten)",
-  "Edible Cookie Dough": "Contains: Milk/Dairy, Wheat (Gluten), Soy",
-  "Cinnamon Rolls": "",
-  "Cupcakes" : "Contains: Wheat (Gluten), Eggs, Dairy. May contain: soy",
-  "Banana Bread" : ""
-}
+  Cookies: {
+    "Large Choc Cookies": {
+      contains: ["Wheat (Gluten)", "Eggs", "Dairy (Butter)"],
+      mayContain: ["Soy"]
+    },
+    "Smaller Choc Cookies": {
+      contains: ["Wheat (Gluten)", "Eggs", "Dairy (Butter)"],
+      mayContain: ["Soy"]
+    }
+  },
+
+  "Rice Krispie Treats": {},
+
+  Brownies: {
+    "PB Chocolate": {
+      contains: ["Peanuts", "Dairy", "Eggs", "Wheat (Gluten)"],
+      mayContain: ["Soy"]
+    }
+  },
+
+  "Sourdough Bread": {
+    Ingredients: {
+      contains: ["Wheat (Gluten)"]
+    }
+  },
+
+  "Edible Cookie Dough": {
+    Ingredients: {
+      contains: ["Milk/Dairy", "Wheat (Gluten)", "Soy"]
+    }
+  },
+
+  "Cinnamon Rolls": {},
+
+  Cupcakes: {
+    Cupcakes: {
+      contains: ["Wheat (Gluten)", "Eggs", "Dairy"],
+      mayContain: ["Soy"]
+    },
+    Frosting: {
+      contains: ["Dairy"]
+    }
+  },
+
+  "Banana Bread": {
+    Regular: {
+      contains: ["Dairy", "Eggs", "Wheat (Gluten)"]
+    },
+    Chocolate: {
+      contains: ["Dairy", "Eggs", "Wheat (Gluten)"],
+      mayContain: ["Soy"]
+    }
+  }
+};
 const PRICES = {
   "Cookies": {
     "1 Large Chocolate Chip Cookies": ["$3"],
@@ -233,9 +291,24 @@ export default function Home() {
                 </DrawerHeader>
                   <div className="flex-1 overflow-y-auto px-4 overscroll-contain">
                     <div className="pb-2 text-xl">
-                      <b>ALLERGENS:</b> <br/>{BAKED_GOODS_ALG[good]}
+                      <b>ALLERGENS:</b>
+                      {BAKED_GOODS_ALG[good] &&
+                        Object.entries(BAKED_GOODS_ALG[good]).map(([section, allergens]) => (
+                          <div key={section} className="mt-2 pl-4">
+                            <div className="font-semibold">{section}</div>
+                            {allergens.contains && (
+                              <div>
+                                <span className="font-medium">Contains:</span> {allergens.contains.join(", ")}
+                              </div>
+                            )}
+                            {allergens.mayContain && (
+                              <div>
+                                <span className="font-medium">May contain:</span> {allergens.mayContain.join(", ")}
+                              </div>
+                            )}
+                          </div>
+                        ))}
                     </div>
-                  
 
                     <div className="pb-2 text-xl">
                       <b>Ingredients:</b>
