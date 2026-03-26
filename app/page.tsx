@@ -72,7 +72,13 @@ const BAKED_GOODS_ING = {
     ]
   },
 
-  "Rice Krispie Treats": {},
+  "Rice Krispie Treats": {
+    "Rice Krispie Treats": [
+      "Marshmellow",
+      "Butter",
+      "Rice Krispie"
+    ]
+  },
 
   Brownies: {
     "PB Chocolate": [
@@ -86,6 +92,18 @@ const BAKED_GOODS_ING = {
       "Cocoa Powder",
       "Salt",
       "Baking Powder"
+    ],
+    "Fudge Brownies": [
+      "Sugar",
+      "Enriched Flour (Wheat flour)",
+      "Cocoa powder",
+      "Palm Oil",
+      "Corn Syrup",
+      "Salt",
+      "Canola Oil",
+      "Carob Powder",
+      "Vegetable Oil",
+      "Eggs"
     ]
   },
 
@@ -188,11 +206,11 @@ const BAKED_GOODS_ALG = {
   Cookies: {
     "Large Choc Cookies": {
       contains: ["Wheat (Gluten)", "Eggs", "Dairy"],
-      mayContain: ["Soy"] // chocolate chips
+      mayContain: [] // dairy-free chocolate chips → no soy assumption
     },
     "Smaller Choc Cookies": {
       contains: ["Wheat (Gluten)", "Eggs", "Dairy"],
-      mayContain: ["Soy"]
+      mayContain: ["Soy"] // chocolate chips + shortening
     },
     "PB Swirl": {
       contains: ["Wheat (Gluten)", "Eggs", "Dairy", "Peanuts"],
@@ -200,29 +218,39 @@ const BAKED_GOODS_ALG = {
     },
     "Two Pack Choc Chip": {
       contains: ["Wheat (Gluten)", "Eggs"],
-      mayContain: ["Dairy", "Soy"] // margarine + chocolate chips
+      mayContain: ["Dairy", "Soy"] // margarine/shortening + chocolate chips
     }
   },
 
-  "Rice Krispie Treats": {},
+  "Rice Krispie Treats": {
+    "Rice Krispie Treats": {
+      contains: ["Dairy"],
+      mayContain: ["Soy"] // marshmallow + cereal often contain soy
+    }
+  },
 
   Brownies: {
     "PB Chocolate": {
       contains: ["Peanuts", "Dairy", "Eggs", "Wheat (Gluten)"],
       mayContain: ["Soy"]
+    },
+    "Fudge Brownies": {
+      contains: ["Wheat (Gluten)", "Eggs"],
+      mayContain: ["Soy"] // vegetable oils + processed mix ingredients
     }
   },
 
   "Sourdough Bread": {
     "Sourdough Bread": {
-      contains: ["Wheat (Gluten)"]
+      contains: ["Wheat (Gluten)"],
+      mayContain: []
     }
   },
 
   "Edible Cookie Dough": {
     "Edible Cookie Dough": {
       contains: ["Dairy", "Wheat (Gluten)"],
-      mayContain: ["Soy"] // chocolate chips
+      mayContain: ["Soy"]
     }
   },
 
@@ -236,26 +264,29 @@ const BAKED_GOODS_ALG = {
   Cupcakes: {
     Cupcakes: {
       contains: ["Wheat (Gluten)", "Eggs", "Dairy"],
-      mayContain: ["Soy"]
+      mayContain: ["Soy"] // emulsifiers
     },
     Frosting: {
-      contains: ["Dairy"]
+      contains: ["Dairy"],
+      mayContain: []
     }
   },
 
   "Banana Bread": {
     Regular: {
-      contains: ["Dairy", "Eggs", "Wheat (Gluten)"]
+      contains: ["Dairy", "Eggs", "Wheat (Gluten)"],
+      mayContain: []
     },
     Chocolate: {
       contains: ["Dairy", "Eggs", "Wheat (Gluten)"],
-      mayContain: ["Soy"] // chocolate
+      mayContain: ["Soy"]
     }
   },
 
   "Lemon Loaf": {
     "Lemon Loaf": {
-      contains: ["Wheat (Gluten)", "Eggs", "Dairy"]
+      contains: ["Wheat (Gluten)", "Eggs", "Dairy"],
+      mayContain: []
     }
   }
 };
@@ -272,7 +303,8 @@ const PRICES = {
   },
 
   "Brownies": {
-    "Single PB Chocolate": ["$1.50"]
+    "Single PB Chocolate": ["$1.50"],
+    "Single Fudge": ["$1.50"]
   },
 
   "Sourdough Bread": {
